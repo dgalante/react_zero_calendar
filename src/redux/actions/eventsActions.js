@@ -31,12 +31,6 @@ export const eventSetActive = (event) => {
   };
 };
 
-export const eventDelete = () => {
-  return {
-    type: types.EVENT_DELETE,
-  };
-};
-
 export const startGetEvents = () => {
   return async (dispatch) => {
     try {
@@ -64,12 +58,7 @@ export const startUpdateEvent = (event) => {
   return async (dispatch) => {
     try {
       event = prepareEventDate(event);
-      const response = await requesWithToken(
-        [`/event/${event.id}`],
-        event,
-        "PUT"
-      );
-
+      await requesWithToken(`/event/${event.id}`, event, "PUT" );
       dispatch(eventUpdate(event));
     } catch (error) {
       Swal.fire("Error", "Error al crear el evento");
@@ -81,6 +70,25 @@ export const startUpdateEvent = (event) => {
 export const eventUpdate = (event) => {
   return {
     type: types.EVENT_UPDATE,
+    payload: event
+  };
+};
+
+export const startRemoveEvent = (event) => {
+  return async (dispatch) => {
+    try {
+      await requesWithToken(`/event/${event.id}`, {}, "DELETE" );
+      dispatch(eventDelete(event));
+    } catch (error) {
+      Swal.fire("Error", "Error al eliminar el evento");
+      console.error("startRemoveEvent error > ", error);
+    }
+  };
+};
+
+export const eventDelete = (event) => {
+  return {
+    type: types.EVENT_DELETE,
     payload: event
   };
 };

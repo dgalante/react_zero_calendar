@@ -9,7 +9,6 @@ import { uiCloseModal } from "../../redux/actions/uiActions";
 import {
   startAddNew,
   eventSetActive,
-  eventUpdate,
   startUpdateEvent,
 } from "../../redux/actions/eventsActions";
 

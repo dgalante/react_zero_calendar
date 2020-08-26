@@ -1,13 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { eventDelete } from '../../redux/actions/eventsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { startRemoveEvent } from '../../redux/actions/eventsActions';
 
 export const DeleteEventFab = () => {
 
     const dispatch = useDispatch();
+    const { activeEvent } = useSelector(state => state.calendar);
 
     const handleFabClick = () => {
-        dispatch( eventDelete() );
+        dispatch( startRemoveEvent( activeEvent ) );
     }
 
     return (
